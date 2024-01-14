@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "phish aurison clients ❤️",
   "main": "app.js",
+  "scripts": {
+    "start" : "node app.js",
+    "nstart" : "nodemon app.js"
+  },
   "author": "colossal",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
