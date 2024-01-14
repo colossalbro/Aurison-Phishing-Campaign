@@ -1,0 +1,8 @@
+{
+  "name": "aurison-phish",
+  "version": "1.0.0",
+  "description": "phish aurison clients ❤️",
+  "main": "app.js",
+  "author": "colossal",
+  "license": "MIT"
+}
