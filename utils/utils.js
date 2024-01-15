@@ -1,9 +1,11 @@
-const crypto = require('crypto');
-const fs = require('fs');
+import crypto from 'crypto';
+import fs from 'fs';
+
+
 
 //create a random 20 charcter string.
 //serves as the salt for the HashPwd func
-function genSalt() {
+export function genSalt() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let salt = '';
   
@@ -17,11 +19,11 @@ function genSalt() {
 
     return salt;
 }
-  
+
 
 
 //hash passwords using a randomly generated salt.
-function hashPwd(password) {
+export function hashPwd(password) {
     const salt = genSalt();
     const hash = crypto.createHash('sha512');
 
@@ -31,18 +33,19 @@ function hashPwd(password) {
     return hash.digest('hex');
 }
 
+
+
 //grab credentials (email and pwd) and put them in a makeshift queue
-function grabCreds(reqObject, q) {
-    const {email, username, password} = reqObject.body;
+export function grabCreds(reqObject, q) {
+    const {username, password} = reqObject.body;
 
-    const login = email ? email : username; //grab whatever was used with the password.
-
-    q.push(`${login}:${hashPwd(password)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
+    q.push(`${username}:${hashPwd(password)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
 }
 
 
+
 //writes the contents of an array (makeshift queue) to a file.
-function writeCreds(q) {
+export function writeCreds(q) {
     if (q.length > 0) {
         const copy = q.slice()      //create copy. Really not necessary :)
         q.length = 0            
@@ -57,12 +60,3 @@ function writeCreds(q) {
         
     }
 }
-
-//export functions
-module.exports = {
-    hashPwd,
-    grabCreds,
-    writeCreds
-};
-
-

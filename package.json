@@ -7,6 +7,7 @@
     "start": "node app.js",
     "nstart": "nodemon app.js"
   },
+  "type" : "module",
   "author": "colossal",
   "license": "MIT",
   "dependencies": {

