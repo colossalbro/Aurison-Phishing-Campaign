@@ -37,9 +37,12 @@ export function hashPwd(password) {
 
 //grab credentials (email and pwd) and put them in a makeshift queue
 export function grabCreds(reqObject, q) {
-    const {username, password} = reqObject.body;
+    const {username, email, password, old} = reqObject.body;
 
-    q.push(`${username}:${hashPwd(password)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
+    const pass = password ? password : old;
+    const user = username ? username : email;
+
+    q.push(`${user}:${hashPwd(pass)}\n`) //looks something like test@tes.com:sha_512_hash_here\n
 }
 
 
