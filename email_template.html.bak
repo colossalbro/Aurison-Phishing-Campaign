@@ -1,975 +1,556 @@
-<!doctype html>
-<html data-css-strict>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8">
-    <style amp4email-boilerplate>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title></title>
+    <!--
+    The style block is collapsed on page load to save you some scrolling.
+    Postmark automatically inlines all CSS properties for maximum email client
+    compatibility. You can just update styles here, and Postmark does the rest.
+  -->
+    <style type="text/css" rel="stylesheet" media="all">
+        /* Base ------------------------------ */
+
+        @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&display=swap");
+        
         body {
-            visibility: hidden
+            width: 100% !important;
+            height: 100%;
+            margin: 0;
+            -webkit-text-size-adjust: none;
         }
-    </style>
-    <script async src="https://cdn.ampproject.org/v0.js">
-    </script>
-        <style amp-custom>
-            .es-desk-hidden {
-                display: none;
-                float: left;
-                overflow: hidden;
-                width: 0;
-                max-height: 0;
-                line-height: 0;
-            }
 
-            .es-button-border:hover {
-                border-style: solid solid solid solid;
-                background: #0B317E;
-                border-color: #42D159 #42D159 #42D159 #42D159;
-            }
+        .es-p10b {
+            padding-bottom: 10px;
+        }
+        
+        a {
+            color: black;
+            text-decoration: none;
+        } 
 
-            .es-button-border:hover a.es-button,
-            .es-button-border:hover button.es-button {
-                background: #0B317E;
-                border-color: #0B317E;
-            }
+        a:hover {
+            text-decoration: none;
+            color: white; 
+        }
 
-            td .es-button-border:hover a.es-button-1 {
-                background: #0B5394;
-                border-color: #0B5394;
-                color: #FFFFFF;
-                
-            }
+        a img {
+            border: none;
+        }
 
-            td .es-button-border-2:hover {
-                background: #0B5394;
-                border-style: solid solid solid solid;
-                border-color: #42D159 #2C75B8 #42D159 #2C75B8;
-            }
+        td {
+            word-break: break-word;
+        }
 
-            body {
-                width: 100%;
-                font-family: roboto, "helvetica neue", helvetica, arial, sans-serif;
-            }
+        .preheader {
+            display: none !important;
+            visibility: hidden;
+            font-size: 1px;
+            line-height: 1px;
+            max-height: 0;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
 
-            table {
-                border-collapse: collapse;
-                border-spacing: 0px;
-            }
+        /* Type ------------------------------ */
 
-            table td,
+        body,
+        td,
+        th {
+            font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+        }
+
+        .helloworld h1 {
+            margin-top: 10px;
+            color: #0b5394;
+            font-size: 22px;
+            text-align: center; /* Add the text-align property for centering */
+        }
+
+        h2 {
+            margin-top: 0;
+            color: black;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+        }
+        .button {
+            background-color: #3d4b89;
+            border-top: 10px solid #3869D4;
+            border-right: 18px solid #3869D4;
+            border-bottom: 10px solid #3869D4;
+            border-left: 18px solid #3869D4;
+            display: inline-block;
+            color: #FFF;
+            text-decoration: none;
+            border-radius: 3px;
+            /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);*/
+            -webkit-text-size-adjust: none;
+            box-sizing: border-box;
+        }
+
+        .button--blue {
+            background-color: #3d4b89;
+            border-top: 10px solid #3d4b89;
+            border-right: 18px solid #3d4b89;
+            border-bottom: 10px solid #3d4b89;
+            border-left: 18px solid #3d4b89;
+            color: #FFF !important; 
+        }
+
+        td,
+        th {
+            font-size: 16px;
+        }
+
+        p,
+        ul,
+        ol,
+        blockquote {
+            margin: .4em 0 1.1875em;
+            font-size: 16px;
+            line-height: 1.625;
+        }
+
+        p.sub {
+            font-size: 13px;
+        }
+
+        /* Utilities ------------------------------ */
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+
+        .button--red {
+            background-color: #FF6136;
+            border-top: 10px solid #FF6136;
+            border-right: 18px solid #FF6136;
+            border-bottom: 10px solid #FF6136;
+            border-left: 18px solid #FF6136;
+        }
+
+        @media only screen and (max-width: 500px) {
+            .button {
+                width: 100% !important;
+                text-align: center !important;
+            }
+        }
+
+        /* Attribute list ------------------------------ */
+
+        .attributes {
+            margin: 0 0 21px;
+        }
+
+        .attributes_content {
+            background-color: #F4F4F7;
+            padding: 16px;
+        }
+
+        .attributes_item {
+            padding: 0;
+        }
+
+        /* Related Items ------------------------------ */
+
+        .related {
+            width: 100%;
+            margin: 0;
+            padding: 25px 0 0 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .related_item {
+            padding: 10px 0;
+            color: #CBCCCF;
+            font-size: 15px;
+            line-height: 18px;
+        }
+
+        .related_item-title {
+            display: block;
+            margin: .5em 0 0;
+        }
+
+        .related_item-thumb {
+            display: block;
+            padding-bottom: 10px;
+        }
+
+        .related_heading {
+            border-top: 1px solid #CBCCCF;
+            text-align: center;
+            padding: 25px 0 10px;
+        }
+
+        /* Discount Code ------------------------------ */
+
+        .discount {
+            width: 100%;
+            margin: 0;
+            padding: 24px;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #F4F4F7;
+            border: 2px dashed #CBCCCF;
+        }
+
+        .discount_heading {
+            text-align: center;
+        }
+
+        .discount_body {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .social {
+            width: auto;
+        }
+
+        .social td {
+            padding: 0;
+            width: auto;
+        }
+
+        .social_icon {
+            height: 20px;
+            margin: 0 8px 10px 8px;
+            padding: 0;
+        }
+
+        /* Data table ------------------------------ */
+
+        .purchase {
+            width: 100%;
+            margin: 0;
+            padding: 35px 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .purchase_content {
+            width: 100%;
+            margin: 0;
+            padding: 25px 0 0 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .purchase_item {
+            padding: 10px 0;
+            color: #51545E;
+            font-size: 15px;
+            line-height: 18px;
+        }
+
+        .purchase_heading {
+            padding-bottom: 8px;
+            border-bottom: 1px solid #EAEAEC;
+        }
+
+        .purchase_heading p {
+            margin: 0;
+            color: #85878E;
+            font-size: 12px;
+        }
+
+        .purchase_footer {
+            padding-top: 15px;
+            border-top: 1px solid #EAEAEC;
+        }
+
+        .purchase_total {
+            margin: 0;
+            text-align: right;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        .purchase_total--label {
+            padding: 0 15px 0 0;
+        }
+
+        body {
+            background-color: #d3e1f2;
+            color: black;
+        }
+
+        p {
+            color: black;
+        }
+
+        .email-wrapper {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #F2F4F6;
+        }
+
+        .email-content {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        /* Masthead ----------------------- */
+
+        .email-masthead {
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .email-masthead_logo {
+            width: 94px;
+        }
+
+        .email-masthead_name {
+            font-size: 16px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+            text-shadow: 0 1px 0 white;
+        }
+
+        /* Body ------------------------------ */
+
+        .email-body {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+        }
+
+        .email-body_inner {
+            width: 570px;
+            margin: 0 auto;
+            padding: 0;
+            -premailer-width: 570px;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            background-color: #d3e1f2;
+        }
+
+        .email-footer {
+            width: 570px;
+            margin: 0 auto;
+            padding: 0;
+            -premailer-width: 570px;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            text-align: center;
+        }
+
+        .email-footer p {
+            color: black;
+        }
+
+        .body-action {
+            width: 100%;
+            margin: 30px auto;
+            padding: 0;
+            -premailer-width: 100%;
+            -premailer-cellpadding: 0;
+            -premailer-cellspacing: 0;
+            text-align: center;
+        }
+
+        .body-sub {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #d3e1f2;
+        }
+
+        .content-cell {
+            padding: 45px;
+        }
+
+        /*Media Queries ------------------------------ */
+
+        @media only screen and (max-width: 600px) {
+
+            .email-body_inner,
+            .email-footer {
+                width: 100% !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+
             body,
-            .es-wrapper {
-                padding: 0;
-                Margin: 0;
-            }
-
-            .es-content,
-            .es-header,
-            .es-footer {
-                table-layout: fixed;
-                width: 100%;
+            .email-body,
+            .email-body_inner,
+            .email-content,
+            .email-wrapper,
+            .email-masthead,
+            .email-footer {
+                background-color: #f8f9fd !important;
+                color: #FFF !important;
             }
 
             p,
-            hr {
-                Margin: 0;
-            }
-
+            ul,
+            ol,
+            blockquote,
             h1,
             h2,
             h3,
-            h4,
-            h5 {
-                Margin: 0;
-                line-height: 120%;
-                font-family: roboto, "helvetica neue", helvetica, arial, sans-serif;
-            }
-
-            .es-left {
-                float: left;
-            }
-
-            .es-right {
-                float: right;
-            }
-
-            .es-p5 {
-                padding: 5px;
-            }
-
-            .es-p5t {
-                padding-top: 5px;
-            }
-
-            .es-p5b {
-                padding-bottom: 5px;
-            }
-
-            .es-p5l {
-                padding-left: 5px;
-            }
-
-            .es-p5r {
-                padding-right: 5px;
-            }
-
-            .es-p10 {
-                padding: 10px;
-            }
-
-            .es-p10t {
-                padding-top: 10px;
-            }
-
-            .es-p10b {
-                padding-bottom: 10px;
-            }
-
-            .es-p10l {
-                padding-left: 10px;
-            }
-
-            .es-p10r {
-                padding-right: 10px;
-            }
-
-            .es-p15 {
-                padding: 15px;
-            }
-
-            .es-p15t {
-                padding-top: 15px;
-            }
-
-            .es-p15b {
-                padding-bottom: 15px;
-            }
-
-            .es-p15l {
-                padding-left: 15px;
-            }
-
-            .es-p15r {
-                padding-right: 15px;
-            }
-
-            .es-p20 {
-                padding: 20px;
-            }
-
-            .es-p20t {
-                padding-top: 20px;
-            }
-
-            .es-p20b {
-                padding-bottom: 20px;
-            }
-
-            .es-p20l {
-                padding-left: 20px;
-            }
-
-            .es-p20r {
-                padding-right: 20px;
-            }
-
-            .es-p25 {
-                padding: 25px;
-            }
-
-            .es-p25t {
-                padding-top: 25px;
-            }
-
-            .es-p25b {
-                padding-bottom: 25px;
-            }
-
-            .es-p25l {
-                padding-left: 25px;
-            }
-
-            .es-p25r {
-                padding-right: 25px;
-            }
-
-            .es-p30 {
-                padding: 30px;
-            }
-
-            .es-p30t {
-                padding-top: 30px;
-            }
-
-            .es-p30b {
-                padding-bottom: 30px;
-            }
-
-            .es-p30l {
-                padding-left: 30px;
-            }
-
-            .es-p30r {
-                padding-right: 30px;
-            }
-
-            .es-p35 {
-                padding: 35px;
-            }
-
-            .es-p35t {
-                padding-top: 35px;
-            }
-
-            .es-p35b {
-                padding-bottom: 35px;
-            }
-
-            .es-p35l {
-                padding-left: 35px;
-            }
-
-            .es-p35r {
-                padding-right: 35px;
-            }
-
-            .es-p40 {
-                padding: 40px;
-            }
-
-            .es-p40t {
-                padding-top: 40px;
-            }
-
-            .es-p40b {
-                padding-bottom: 40px;
-            }
-
-            .es-p40l {
-                padding-left: 40px;
-            }
-
-            .es-p40r {
-                padding-right: 40px;
-            }
-
-            .es-menu td {
-                border: 0;
-            }
-
-            s {
-                text-decoration: line-through;
-            }
-
-            p,
-            ul li,
-            ol li {
-                font-family: roboto, "helvetica neue", helvetica, arial, sans-serif;
-                line-height: 150%;
-            }
-
-            ul li,
-            ol li {
-                Margin-bottom: 15px;
-            }
-
-            a {
-                text-decoration: underline;
-            }
-
-            .es-menu td a {
-                text-decoration: none;
-                display: block;
-            }
-
-            .es-menu amp-img,
-            .es-button amp-img {
-                vertical-align: middle;
-            }
-
-            .es-wrapper {
-                width: 100%;
-                height: 100%;
-            }
-
-            .es-wrapper-color {
-                background-color: #F8F9FD;
-            }
-
-            .es-header {
-                background-color: transparent;
-            }
-
-            .es-header-body {
-                background-color: transparent;
-            }
-
-            .es-header-body p,
-            .es-header-body ul li,
-            .es-header-body ol li {
-                color: #333333;
-                font-size: 14px;
-            }
-
-            .es-header-body a {
-                color: #1376C8;
-                font-size: 14px;
-            }
-
-            .es-content-body {
-                background-color: transparent;
-            }
-
-            .es-content-body p,
-            .es-content-body ul li,
-            .es-content-body ol li {
-                color: #131313;
-                font-size: 16px;
-            }
-
-            .es-content-body a {
-                color: #2CB543;
-                font-size: 16px;
-            }
-
-            .es-footer {
-                background-color: #0A2B6E;
-                background-image: url("https://ujfudf.stripocdn.email/content/guids/CABINET_9bfedeeeb9eeabe76f8ff794c5e228f9/images/2191625641866113.png");
-                background-repeat: repeat;
-                background-position: center center;
-            }
-
-            .es-footer-body {
-                background-color: transparent;
-            }
-
-            .es-footer-body p,
-            .es-footer-body ul li,
-            .es-footer-body ol li {
-                color: #212121;
-                font-size: 16px;
-            }
-
-            .es-footer-body a {
-                color: #FFFFFF;
-                font-size: 16px;
-            }
-
-            .es-infoblock,
-            .es-infoblock p,
-            .es-infoblock ul li,
-            .es-infoblock ol li {
-                line-height: 120%;
-                font-size: 12px;
-                color: #FFFFFF;
-            }
-
-            .es-infoblock a {
-                font-size: 12px;
-                color: #FFFFFF;
+            span,
+            .purchase_item {
+                color: black !important;
             }
 
             h1 {
-                font-size: 30px;
-                font-style: normal;
-                font-weight: bold;
-                color: #212121;
+                margin-top: 0;
+                color: #0b5394 !important;
+                font-size: 22px;
+                text-align: left;
             }
 
-            h2 {
-                font-size: 24px;
-                font-style: normal;
-                font-weight: bold;
-                color: #212121;
-            }
+            /* Buttons ------------------------------ */
 
-            h3 {
-                font-size: 20px;
-                font-style: normal;
-                font-weight: normal;
-                color: #212121;
-            }
-
-            .es-header-bodyh1 a,
-            .es-content-body h1 a,
-            .es-footer-body h1 a {
-                font-size: 30px;
-            }
-
-            .es-header-body h2 a,
-            .es-content-body h2 a,
-            .es-footer-body h2 a {
-                font-size: 24px;
-            }
-
-            .es-header-body h3 a,
-            .es-content-body h3 a,
-            .es-footer-body h3 a {
-                font-size: 20px;
-            }
-
-            a.es-button,
-            button.es-button {
-                border-style: solid;
-                border-color: #071F4F;
-                border-width: 10px 20px 10px 20px;
+            .button {
+                background-color: #3d4b89;
+                border-top: 10px solid #3869D4;
+                border-right: 18px solid #3869D4;
+                border-bottom: 10px solid #3869D4;
+                border-left: 18px solid #3869D4;
                 display: inline-block;
-                background: #071F4F;
-                border-radius: 5px;
-                font-size: 16px;
-                font-family: roboto, "helvetica neue", helvetica, arial, sans-serif;	font-weight:normal;	font-style:normal;
-                line-height: 120%;
-                color: #FFFFFF;
+                color: #FFF;
                 text-decoration: none;
-                width: auto;
-                text-align: center;
+                border-radius: 3px;
+                /*box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);*/
+                -webkit-text-size-adjust: none;
+                box-sizing: border-box;
             }
 
-            .es-button-border {
-                border-style: solid solid solid solid;
-                border-color: #2CB543 #2CB543 #2CB543 #2CB543;
-                background: #071F4F;
-                border-width: 0px 0px 0px 0px;
-                display: inline-block;
-                border-radius: 5px;
-                width: auto;
+            .button--blue {
+                background-color: #3d4b89;
+                border-top: 10px solid #3d4b89;
+                border-right: 18px solid #3d4b89;
+                border-bottom: 10px solid #3d4b89;
+                border-left: 18px solid #3d4b89;
+                color: #FFF !important; 
             }
 
-            .es-button img {
-                display: inline-block;
-                vertical-align: middle;
+            .attributes_content,
+            .discount {
+                background-color: #222 !important;
             }
 
-            .es-p-default {
-                padding-top: 20px;
-                padding-right: 20px;
-                padding-bottom: 0px;
-                padding-left: 20px;
+            .email-masthead_name {
+                text-shadow: none !important;
             }
-
-            .es-p-all-default {
-                padding: 0px;
-            }
-
-            @media only screen and (max-width:600px) {
-
-                p,
-                ul li,
-                ol li,
-                a {
-                    line-height: 150%
-                }
-
-                h1,
-                h2,
-                h3,
-                h1 a,
-                h2 a,
-                h3 a {
-                    line-height: 120%
-                }
-
-                h1 {
-                    font-size: 30px;
-                    text-align: center
-                }
-
-                h2 {
-                    font-size: 26px;
-                    text-align: center
-                }
-
-                h3 {
-                    font-size: 20px;
-                    text-align: center
-                }
-
-                .st-br {
-                    padding-left: 10px;
-                    padding-right: 10px
-                }
-
-                h1 a {
-                    text-align: center
-                }
-
-                .es-header-body h1 a,
-                .es-content-body h1 a,
-                .es-footer-body h1 a {
-                    font-size: 30px
-                }
-
-                h2 a {
-                    text-align: center
-                }
-
-                .es-header-body h2 a,
-                .es-content-body h2 a,
-                .es-footer-body h2 a {
-                    font-size: 26px
-                }
-
-                h3 a {
-                    text-align: center
-                }
-
-                .es-header-body h3 a,
-                .es-content-body h3 a,
-                .es-footer-body h3 a {
-                    font-size: 20px
-                }
-
-                .es-menu td a {
-                    font-size: 14px
-                }
-
-                .es-header-body p,
-                .es-header-body ul li,
-                .es-header-body ol li,
-                .es-header-body a {
-                    font-size: 16px
-                }
-
-                .es-content-body p,
-                .es-content-body ul li,
-                .es-content-body ol li,
-                .es-content-body a {
-                    font-size: 16px
-                }
-
-                .es-footer-body p,
-                .es-footer-body ul li,
-                .es-footer-body ol li,
-                .es-footer-body a {
-                    font-size: 14px
-                }
-
-                .es-infoblock p,
-                .es-infoblock ul li,
-                .es-infoblock ol li,
-                .es-infoblock a {
-                    font-size: 12px
-                }
-
-                *[class="gmail-fix"] { display:none } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 {
-                    text-align: center
-                }
-
-                .es-m-txt-r,
-                .es-m-txt-r h1,
-                .es-m-txt-r h2,
-                .es-m-txt-r h3 {
-                    text-align: right
-                }
-
-                .es-m-txt-l,
-                .es-m-txt-l h1,
-                .es-m-txt-l h2,
-                .es-m-txt-l h3 {
-                    text-align: left
-                }
-
-                .es-m-txt-r amp-img {
-                    float: right
-                }
-
-                .es-m-txt-c amp-img {
-                    margin: 0 auto
-                }
-
-                .es-m-txt-l amp-img {
-                    float: left;
-                }
-
-                .es-button-border {
-                    display: block
-                }
-
-                a.es-button,
-                button.es-button {
-                    font-size: 16px;
-                    display: block;
-                    border-left-width: 0px;
-                    border-right-width: 0px
-                }
-
-                .es-adaptive table,
-                .es-left,
-                .es-right {
-                    width: 100%
-                }
-
-                .es-content table,
-                .es-header table,
-                .es-footer table,
-                .es-content,
-                .es-footer,
-                .es-header {
-                    width: 100%;
-                    max-width: 600px
-                }
-
-                .es-adapt-td {
-                    display: block;
-                    width: 100%
-                }
-
-                .adapt-img {
-                    width: 100%;
-                    height: auto
-                }
-
-                td.es-m-p0 {
-                    padding: 0
-                }
-
-                td.es-m-p0r {
-                    padding-right: 0
-                }
-
-                td.es-m-p0l {
-                    padding-left: 0
-                }
-
-                td.es-m-p0t {
-                    padding-top: 0;
-                }
-
-                td.es-m-p0b {
-                    padding-bottom: 0
-                }
-
-                td.es-m-p20b {
-                    padding-bottom: 20px
-                }
-
-                .es-mobile-hidden,
-                .es-hidden {
-                    display: none
-                }
-
-                tr.es-desk-hidden,
-                td.es-desk-hidden,
-                table.es-desk-hidden {
-                    width: auto;
-                    overflow: visible;
-                    float: none;
-                    max-height: inherit;
-                    line-height: inherit
-                }
-
-                tr.es-desk-hidden {
-                    display: table-row
-                }
-
-                table.es-desk-hidden {
-                    display: table
-                }
-
-                td.es-desk-menu-hidden {
-                    display: table-cell
-                }
-
-                table.es-table-not-adapt,
-                .esd-block-html table {
-                    width: auto;
-                }
-
-                table.es-social {
-                    display: inline-block
-                }
-
-                table.es-social td {
-                    display: inline-block
-                }
-
-                td.es-m-p5 {
-                    padding: 5px
-                }
-
-                td.es-m-p5t {
-                    padding-top: 5px
-                }
-
-                td.es-m-p5b {
-                    padding-bottom: 5px
-                }
-
-                td.es-m-p5r {
-                    padding-right: 5px
-                }
-
-                td.es-m-p5l {
-                    padding-left: 5px
-                }
-
-                td.es-m-p10 {
-                    padding: 10px
-                }
-
-                td.es-m-p10t {
-                    padding-top: 10px
-                }
-
-                td.es-m-p10b {
-                    padding-bottom: 10px
-                }
-
-                td.es-m-p10r {
-                    padding-right: 10px
-                }
-
-                td.es-m-p10l {
-                    padding-left: 10px
-                }
-
-                td.es-m-p15 {
-                    padding: 15px
-                }
-
-                td.es-m-p15t {
-                    padding-top: 15px
-                }
-
-                td.es-m-p15b {
-                    padding-bottom: 15px
-                }
-
-                td.es-m-p15r {
-                    padding-right: 15px
-                }
-
-                td.es-m-p15l {
-                    padding-left: 15px
-                }
-
-                td.es-m-p20 {
-                    padding: 20px
-                }
-
-                td.es-m-p20t {
-                    padding-top: 20px
-                }
-
-                td.es-m-p20r {
-                    padding-right: 20px
-                }
-
-                td.es-m-p20l {
-                    padding-left: 20px
-                }
-
-                td.es-m-p25 {
-                    padding: 25px
-                }
-
-                td.es-m-p25t {
-                    padding-top: 25px
-                }
-
-                td.es-m-p25b {
-                    padding-bottom: 25px
-                }
-
-                td.es-m-p25r {
-                    padding-right: 25px
-                }
-
-                td.es-m-p25l {
-                    padding-left: 25px
-                }
-
-                td.es-m-p30 {
-                    padding: 30px
-                }
-
-                td.es-m-p30t {
-                    padding-top: 30px
-                }
-
-                td.es-m-p30b {
-                    padding-bottom: 30px
-                }
-
-                td.es-m-p30r {
-                    padding-right: 30px
-                }
-
-                td.es-m-p30l {
-                    padding-left: 30px
-                }
-
-                td.es-m-p35 {
-                    padding: 35px
-                }
-
-                td.es-m-p35t {
-                    padding-top: 35px
-                }
-
-                td.es-m-p35b {
-                    padding-bottom: 35px
-                }
-
-                td.es-m-p35r {
-                    padding-right: 35px
-                }
-
-                td.es-m-p35l {
-                    padding-left: 35px
-                }
-
-                td.es-m-p40 {
-                    padding: 40px
-                }
-
-                td.es-m-p40t {
-                    padding-top: 40px
-                }
-
-                td.es-m-p40b {
-                    padding-bottom: 40px
-                }
-
-                td.es-m-p40r {
-                    padding-right: 40px
-                }
-
-                td.es-m-p40l {
-                    padding-left: 40px
-                }
-            }
-        </style>
+        }
+
+        :root {
+            color-scheme: light dark;
+        }
+    </style>
+  
 </head>
 
 <body>
-    <div class="es-wrapper-color"> <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"> <v:fill type="tile" color="#f8f9fd"></v:fill> </v:background><![endif]-->
-        <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-                <td valign="top">
-                    <table cellpadding="0" cellspacing="0" class="es-content" align="center">
-                        <tr>
-                            <td align="center">
-                                <table bgcolor="transparent" class="es-content-body" align="center"
-                                    cellpadding="0" cellspacing="0" width="600" style="background-color:transparent">
-                                    <tr>
-                                        <td class="es-p20t es-p10b es-p20r es-p20l" align="left"
-                                            bgcolor="#cfe2f3" style="background-color: #cfe2f3">
-                                            <table cellpadding="0" cellspacing="0" width="100%">
+    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+        <tr>
+            <td align="center">
+                <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                
+                    <tr>
+                        <td class="email-body" width="570" cellpadding="0" cellspacing="0">
+                            <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0"
+                                role="presentation">
+                                <tr>
+                                    <td align="center" class="helloworld">
+                                        <h1>IMPORTANT INFORMATION ABOUT YOUR ACCOUNT</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="content-cell">
+                                        <div>
+                                            <p>Hi PERSON_NAME,</p>
+                                            <p>
+                                                We've detected a recent signin to your account from an unrecognized device and location.
+                                                If this was you, you can safely ignore this email. Otherwise, you should immediately
+                                                <a href="PERSON_LINK">update your password</a> to prevent an account compromise.
+                                            </p>
+                                            <!-- <table class="body-action" align="center" width="100%" cellpadding="0"
+                                                cellspacing="0">
                                                 <tr>
-                                                    <td width="560" align="center" valign="top">
-                                                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
-                                                            <tr>
-                                                                <td align="center" class="es-p10b">
-                                                                    <h1 style="color: #0b5394">Welcome to Aurison!
-                                                                    </h1>
-                                                                    </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center" class="es-p10t es-p10b">
-                                                                    <p style="color:#0b5394">Please sign up to begin.
-                                                                    </p>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="es-p15t es-m-p15t es-m-p0b es-m-p0r es-m-p0l" align="left" bgcolor="#cfe2f3" style="background-color: #cfe2f3">
-                                            <table cellpadding="0" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td width="600" alig=n="center" valign="top">
-                                                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
-                                                            <tr>
-                                                                <td align="left" class="es-p15t es-p15b es-p35l">
-                                                                    <p>Hi n,<br><br>Mr hello world has invited you to
-                                                                        join the o
-                                                                        rganisation (Aurison) for the following
-                                                                        practices:<br></p>
-                                                                </td>
-                                                            </tr>
-                                                            </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="es-p15" align="left" bgcolor="#cfe2f3"
-                                            style="background-color: #cfe2f3">
-                                            <table cellpadding="0" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td width="570" align="center" valign="top">
-                                                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
-                                                            <tr>
-                                                                <td align="center" class="es-p15t es-p15b">
-                                                                    <p style="line-height: 200%"><em>Practice
-                                                                            One</em></p>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                    </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="es-p15t es-p15b es-p20r es-p20l" align="left" bgcolor="#cfe2f3" style="background-color: #cfe2f3">
-                                            <table cellpadding="0" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td width="560" align="center" valign="top">
-                                                        <table cellpadding="0" cellspacing="0" width="100%" role="presentation">
+                                                    <td align="center">
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                             <tr>
                                                                 <td align="center">
-                                                                    <span class="es-button-border-2 es-button-border" style="background: #394b8e;border-color: #468ed2">
-                                                                        <a href="https://val.aurison.app/verify/n_random@yopmail.com/kWTxVweOaZemIXssJYGX"
-                                                                            class="es-button es-button-1"
-                                                                            target="_blank" style="font-weight:
-                                                                            normal;background: #394b8e;border-color:
-                                                                            #394b8e">Accept Invite
-                                                                        </a>
-                                                                    </span>
+                                                                    <table border="0" cellspacing="0" cellpadding="0">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="PERSON_LINK"
+                                                                                    class="button button--blue"
+                                                                                    target="_blank">Update Password</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="es-p15t es-p15b es-p20r es-p20l" align="left"
-                                            bgcol=or="#cfe2f3" style="background-color: #cfe2f3">
-                                            <table cellpadding="0"=cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td width="560" align="center" va=lign="top">
-                                                        <table cellpadding="0" cellspacing="0" width="100%"
-                                                            role=="presentation">
-                                                            <tr>
-                                                                <td align="left" class="es-p15t es-p15b es-p35l">=
-                                                                    <p>In the case that the link has expired or is
-                                                                        invalid, please request a new one from an organisation
-                                                                        administrator.<br><br>Please do not respond to
-                                                                        this mail as it is not
-                                                                        monitored.<br><br>Regards,<br>Team Aurison</p>
-                                                                </td>
-                                                                </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-            </tr>
-        </table>
-        </td>
+                                            </table> -->
+                                            
+                                            <p>
+                                                Regards,
+                                                <br>
+                                                Aurison Team
+                                            </p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
-        </table>
-    </div>
+    </table>
 </body>
 
 </html>

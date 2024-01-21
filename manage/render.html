@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STILL HATE FRONTEND</title>
+    <style>
+        div {
+            text-align: start;
+            color: #fff;
+        }
+        body {
+            background-color: #8a70a3; /* Dull shade of purple */
+            display: flex;
+            flex-direction: column; /* Change to column direction */
+            align-items: center;
+            padding: 20px;
+            height: 100vh;
+            margin: 0;
+        }
+
+        button {
+            background-color: #5c487e; /* Darker shade of purple for buttons */
+            color: #fff; /* White text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #fff; /* White border for cells */
+            padding: 10px;
+            text-align: left;
+            color: #fff; /* White text color for cells */
+        }
+
+        @media only screen and (max-width: 600px) {
+            button {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="window.location.href = '/eganam/camp/new';">INFO</button>
+    <button onclick="alert(1);" style="margin-top: 5px;">START</button>
+    <div>
+        <p>Campaign Name: HelloWorld</p>
+        <p>Creation Date: 12:2121:12112</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Organization</th>
+                <th>Opened Email</th>
+                <th>Clicked Link</th>
+                <th>Submitted Password</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Render rows dynamically from backend data -->
+            <tr>
+                <td>Mr</td>
+                <td>John</td>
+                <td>Doe</td>
+                <td>john.doe@example.com</td>
+                <td>Example Org</td>
+                <td>True</td>
+                <td>False</td>
+                <td>False</td>
+                <!-- Add more cells as needed -->
+            </tr>
+            <!-- Repeat for each entry -->
+        </tbody>
+    </table>
+</body>
+</html>
